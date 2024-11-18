@@ -9,12 +9,12 @@ pipeline {
         }
         stage('Installing Dependencies in Frontend application') {
             steps {
-                sh 'cd registration-mern-app && npm install'
+                sh 'cd registration-mern-app && rm -rf node_modules && npm install'
             }
         }
         stage('Running the Frontend application') {
             steps {
-                sh 'cd registration-mern-app && npm start'
+                sh 'cd registration-mern-app && && npm start'
             }
         }
         stage('Install Dependencies in Backend application') {
