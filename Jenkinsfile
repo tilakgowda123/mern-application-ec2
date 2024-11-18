@@ -1,33 +1,36 @@
 pipeline {
     agent any
-    parameters {
-        choice choices: ['create', 'delete'], description: 'creating and deleting', name: 'action'
-    }
-
+    
     stages {
-        stage('Build') {
-            when { expression { return params.action == 'create'}}
+        stage('clone') {
             steps {
-                // git 'https://github.com/VootlaSaiCharan/dynamic_application.git'
-                // git branch: 'parameter', url: 'https://github.com/VootlaSaiCharan/dynamic_application.git'
-                git credentialsId: 'id_ed25519', url: 'git@github.com:VootlaSaiCharan/dynamic_application.git'
+                git 'https://github.com/VootlaSaiCharan/mern-application-ec2.git'
             }
         }
-        stage('Run Docker Compose') {
-            when { expression { return params.action == 'create'}}
+        stage('enter in to the project') {
             steps {
-                script{
-                    sh 'docker-compose up -d'
-                }
+                sh 'cd registration-mern-app'
             }
         }
-        stage('Delete Docker Compose') {
-            when { expression { return params.action == 'delete'}}
+        stage('Installing Dependencies in Frontend application') {
             steps {
-                script{
-                    sh 'docker-compose down'
-                    sh 'docker rmi -f $(docker images -aq)'
-                }
+                sh 'npm install'
+            }
+        }
+        stage('Running the Frontend application') {
+            steps{
+                sh 'npm start'
+            }
+        }
+        stage('Install Dependencies in Backend application') {
+            steps{
+                sh 'cd ../registration-server/'
+                sh 'npm install'
+            }
+        }
+        stage('Run the Backend application') {
+            steps{
+                sh 'npm run dev'
             }
         }
     }
