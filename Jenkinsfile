@@ -9,11 +9,11 @@ pipeline {
         }
         stage('enter in to the project') {
             steps {
-                sh 'cd registration-mern-app'
             }
         }
         stage('Installing Dependencies in Frontend application') {
             steps {
+                sh 'cd registration-mern-app'
                 sh 'npm install'
             }
         }
