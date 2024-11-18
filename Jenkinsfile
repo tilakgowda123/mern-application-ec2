@@ -7,10 +7,6 @@ pipeline {
                 git 'https://github.com/VootlaSaiCharan/mern-application-ec2.git'
             }
         }
-        stage('enter in to the project') {
-            steps {
-            }
-        }
         stage('Installing Dependencies in Frontend application') {
             steps {
                 sh 'cd registration-mern-app'
