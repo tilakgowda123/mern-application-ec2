@@ -15,7 +15,8 @@ pipeline {
         stage('Running the Frontend application') {
             steps {
                 // sh 'cd registration-mern-app && npm start'
-                sh 'cd registration-mern-app && npm start & > app.log'
+                sh 'cd registration-mern-app'
+                sh 'nohup npm start &'
             }
         }
         stage('Install Dependencies in Backend application') {
