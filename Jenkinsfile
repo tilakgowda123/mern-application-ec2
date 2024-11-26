@@ -14,11 +14,8 @@ pipeline {
         }
         stage('Running the Frontend application') {
             steps {
-                // Use nohup to run npm start in the background and redirect output to a log file
-                sh '''
-                    cd registration-mern-app
-                    nohup npm start > frontend.log 2>&1 &
-                '''
+                // sh 'cd registration-mern-app && npm start'
+                sh 'cd registration-mern-app && nohup npm start &'
             }
         }
         stage('Install Dependencies in Backend application') {
@@ -29,7 +26,7 @@ pipeline {
         stage('Run the Backend application') {
             steps {
                 // sh 'cd registration-server && npm run dev'
-                sh 'cd registration-server && rm -rf node_modules && nohup npm run dev &'
+                sh 'cd registration-server && nohup npm run dev &'
             }
         }
     }
