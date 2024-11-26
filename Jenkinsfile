@@ -16,7 +16,7 @@ pipeline {
             steps {
                 // sh 'cd registration-mern-app && npm start'
                 sh 'cd registration-mern-app'
-                sh 'nohup npm start &'
+                sh 'nohup npm start'
             }
         }
         stage('Install Dependencies in Backend application') {
