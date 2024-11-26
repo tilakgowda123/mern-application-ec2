@@ -7,14 +7,25 @@ pipeline {
                 git 'https://github.com/VootlaSaiCharan/mern-application-ec2.git'
             }
         }
-        stage('Installing Dependencies and Running the Frontend application') {
+        stage('Installing Dependencies in Frontend application') {
             steps {
-                sh 'cd registration-mern-app && rm -rf node_modules && npm install && nohup npm start &'
+                sh 'cd registration-mern-app && rm -rf node_modules && npm install'
             }
         }
-        stage('Install Dependencies and Running the Backend application') {
+        stage('Running the Frontend application') {
             steps {
-                sh 'cd registration-server && npm install && nohup npm start &'
+                // sh 'cd registration-mern-app && npm start'
+                sh 'cd registration-mern-app && nohup npm start &'
+            }
+        }
+        stage('Install Dependencies in Backend application') {
+            steps {
+                sh 'cd registration-server && npm install'
+            }
+        }
+        stage('Run the Backend application') {
+            steps {
+                sh 'cd registration-server && nohup npm run dev &'
             }
         }
     }
